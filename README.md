@@ -47,7 +47,7 @@ The zip includes the report builder and its fonts, so your PDFs come out exactly
 ### Claude Code
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/Roh-zah.git
+git clone https://github.com/hadjiyannisc-ops/Roh-zah.git
 mkdir -p ~/.claude/skills
 cp -r Roh-zah/roh-zah ~/.claude/skills/
 ```
