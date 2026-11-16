@@ -118,6 +118,9 @@ ST = {
 }
 
 
+BRIDGE_TAG = f'&nbsp;&nbsp;<font name="{SANS_M}" size="7" color="#854F0B">BRIDGE</font>'
+
+
 def spaced(text):
     """Letter-space a short uppercase label."""
     return "&nbsp;".join(escape(text.upper()))
@@ -422,16 +425,20 @@ def build(data, out_path):
                      "Levels: 0 unaware · 1 heard of it · 2 can follow · 3 can do with help · "
                      "4 can do independently · 5 can teach it. The vertical tick marks your target.")
         tgt_default = data.get("target_level", 4)
+        core = [s for s in skills if not s.get("bridge")] or skills
         ratios = [min(float(s.get("level", 0)), float(s.get("target", tgt_default))) /
-                  max(float(s.get("target", tgt_default)), 1) for s in skills]
+                  max(float(s.get("target", tgt_default)), 1) for s in core]
         overall = round(100 * sum(ratios) / len(ratios))
-        rows = [[Paragraph(spaced("Subskill"), ST["th"]), Paragraph(spaced("Level"), ST["th"]), "",
+        rows = [[Paragraph(spaced("Topic"), ST["th"]), Paragraph(spaced("Level"), ST["th"]), "",
                  Paragraph(spaced("Next review"), ST["th"]), Paragraph(spaced("Note"), ST["th"])]]
         for s in skills:
             lvl = float(s.get("level", 0))
             tgt = int(s.get("target", tgt_default))
+            name_xml = rich(s.get("name", ""), 9.2)
+            if s.get("bridge"):
+                name_xml += BRIDGE_TAG
             rows.append([
-                Paragraph(rich(s.get("name", ""), 9.2), ST["td"]),
+                Paragraph(name_xml, ST["td"]),
                 level_bar(lvl, tgt),
                 Paragraph(f"{lvl:g}/5", ST["td_sans"]),
                 Paragraph(escape(str(s.get("next_review", "") or "")), ST["td_muted"]),
@@ -440,7 +447,7 @@ def build(data, out_path):
         table = clean_table(rows, [tw * 0.31, 58, 26, tw * 0.15, None], valign="MIDDLE")
         head = Table([[Paragraph(f"{overall}%", ST["big_num"]),
                        Paragraph("<b>Overall readiness</b><br/>Average progress toward your target level "
-                                 "across all subskills.", ST["small"])]],
+                                 "across all topics from your material (bridges excluded).", ST["small"])]],
                      colWidths=[30 * mm, None])
         head.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
                                   ("LEFTPADDING", (0, 0), (-1, -1), 0)]))
@@ -453,6 +460,8 @@ def build(data, out_path):
         f += section(n, "What we covered")
         for i, c in enumerate(covered, 1):
             title = f'<font name="{SANS_M}" color="#9AA0AA" size="8">{i:02d}</font>&nbsp;&nbsp;' + rich(c.get("title", ""), 10.6)
+            if c.get("bridge"):
+                title += BRIDGE_TAG
             if c.get("source"):
                 title += f'&nbsp;&nbsp;<font name="{SANS}" color="#9AA0AA" size="7.5">{escape(c["source"])}</font>'
             item = [Paragraph(title, ST["item_title"]), Spacer(1, 3)]

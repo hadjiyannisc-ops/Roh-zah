@@ -14,6 +14,14 @@
   "summary": "You now understand **linear maps** as the central object and can derive most results from the definition, which is the strongest position to be in. Eigenvalues are solid. The remaining risk is **change of basis**: you compute it mechanically but pick the wrong direction for the matrix under exam pressure. Two focused practice sessions should close that gap before December 12.",
   "skills": [
     {
+      "name": "Solving 2×2 linear systems",
+      "bridge": true,
+      "level": 3,
+      "target": 3,
+      "next_review": "Nov 20",
+      "note": "Added because change of basis needs it; not in the slides."
+    },
+    {
       "name": "Vector spaces and subspaces",
       "level": 5,
       "target": 4,
@@ -57,6 +65,11 @@
     }
   ],
   "covered": [
+    {
+      "title": "Solving 2×2 linear systems",
+      "bridge": true,
+      "summary": "Elimination for two equations in two unknowns: only the part change-of-basis problems need."
+    },
     {
       "title": "A matrix is a linear map written in a basis",
       "source": "Slides 3.2–3.9",

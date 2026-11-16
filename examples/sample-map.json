@@ -1,0 +1,22 @@
+{
+  "course": "Multivariable Calculus",
+  "target": 4,
+  "recommended": "single",
+  "recommended_reason": "Double integrals are just single integrals done twice, and your quick check showed single integrals aren't solid yet. Fixing that first makes everything below it click.",
+  "focus": "",
+  "nodes": [
+    {"id": "single", "label": "Single integrals", "kind": "bridge", "level": 1, "target": 3, "bridge_for": "Iterated integrals", "summary": "Area under a curve as a limit of sums, and the antiderivative shortcut. Only the parts the double-integral slides rely on."},
+    {"id": "funcs2", "label": "Functions of two variables", "kind": "slides", "source": "Slides 2–6", "level": 4, "summary": "Surfaces z = f(x, y), level curves, and domains in the plane."},
+    {"id": "regions", "label": "Regions in the plane", "kind": "slides", "source": "Slides 7–10", "level": 2, "review_due": true, "summary": "Describing a region with bounds: type I (x first) and type II (y first)."},
+    {"id": "riemann", "label": "Double integral as a limit of sums", "kind": "slides", "source": "Slides 11–14", "level": 0, "summary": "Chop the region into small rectangles, add up f times area, shrink."},
+    {"id": "iterated", "label": "Iterated integrals", "kind": "slides", "source": "Slides 15–19", "level": 0, "summary": "Compute a double integral as two single integrals, inner then outer."},
+    {"id": "fubini", "label": "Fubini and switching order", "kind": "slides", "source": "Slides 20–24", "level": 0, "summary": "When and how you can swap the order of integration, and how the bounds change."},
+    {"id": "polar", "label": "Double integrals in polar", "kind": "slides", "source": "Slides 25–30", "level": 0, "summary": "Why dA becomes r dr dθ, and when polar makes an integral easy."},
+    {"id": "apps", "label": "Area, volume and average value", "kind": "slides", "source": "Slides 31–36", "level": 0, "summary": "Exam-style applications that combine everything above."}
+  ],
+  "edges": [
+    ["single", "iterated"], ["funcs2", "riemann"], ["regions", "riemann"], ["regions", "iterated"],
+    ["riemann", "iterated"], ["iterated", "fubini"], ["iterated", "polar"], ["regions", "polar"],
+    ["fubini", "apps"], ["polar", "apps"]
+  ]
+}

@@ -15,6 +15,8 @@ It's a single [Agent Skill](https://docs.claude.com/en/docs/agents-and-tools/age
 
 Plus things none of them have:
 
+- **An interactive course map.** Your material broken into a tree of ideas: foundations at the top, exam goals at the bottom, your level on every node. It marks where to **start here** and why, and you can click any node to start somewhere else. See [the demo](examples/course-map-demo.html).
+- **Stays inside your material.** Everything taught and tested comes from what you upload. The only additions are **bridges**: if your slides assume something you don't have (double integrals, but single integrals aren't solid), it adds a clearly labeled foundation node, teaches just the slice you need, and goes back to your material.
 - **Built around your material.** It reads your slides first, follows your lecturer's notation, cites slide numbers, and prioritizes what the lecturer stresses and past papers test.
 - **Exam-aware.** Review intervals compress to your exam date. "Exam mode" runs timed mocks in your exam's real format and marks them.
 - **Visuals.** Diagrams, interactive demos and step-throughs whenever an idea is clearer as a picture.
@@ -25,7 +27,7 @@ Plus things none of them have:
 
 1. **Intake:** Claude reads your whole document, builds a map of every claim and how they depend on each other, and asks about your exam (date, format, target).
 2. **Measure:** quick questions, one at a time, until it finds where your knowledge runs out on every topic.
-3. **Plan:** a dependency map from what you already know to what the exam needs. You approve it before any teaching.
+3. **Plan:** the course map, with any bridges you need and a recommended place to start. Start there, or pick any other node. You approve it before any teaching.
 4. **Teach:** for each idea: you predict, Claude explains (answering your prediction), you're checked.
 5. **Practice:** mixed problems that never say which idea they need, with hints given one step at a time.
 6. **Review and exam:** spaced review of earlier topics, mock exams, and a final assessment.
@@ -70,7 +72,7 @@ Commands you can use anytime:
 
 | Command | What it does |
 |---|---|
-| `show progress` | Shows your skill map |
+| `map` / `show progress` | Shows your course map |
 | `practice` | Mixed practice problems on what you've learned |
 | `review due` | Drills only topics due for review |
 | `exam mode` | Timed mock exam in your exam's format |

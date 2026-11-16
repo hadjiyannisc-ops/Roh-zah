@@ -1,6 +1,6 @@
 ---
 name: roh-zah
-description: Study system for exams. Use whenever the user says "Roh-zah" (any spelling or capitalization, e.g. rohzah, roh zah), usually with slides, notes or a document attached. Turns the material into a course map, finds the learner's knowledge edge, teaches each idea from first principles, drills to proven mastery with a 0-5 skill map, spaced review, practice and mock exams, and ends with a printable PDF study report.
+description: Study system for exams. Use whenever the user says "Roh-zah" (any spelling or capitalization, e.g. rohzah, roh zah), usually with slides, notes or a document attached. Turns the material into a course map, finds the learner's knowledge edge, teaches each idea from first principles, shows it as an interactive course map with a recommended starting point, drills to proven mastery with 0-5 levels, spaced review, practice and mock exams, and ends with a printable PDF study report.
 ---
 
 # Roh-zah
@@ -27,14 +27,27 @@ Start when the user says "Roh-zah" (or asks to study, be taught, quizzed or dril
 | **Review** | Subskills due for spaced review | "review due" |
 | **Exam** | Timed mock in the real exam format | "exam mode" |
 
-Other commands, usable anytime: "show progress" (skill map), "harder" / "easier", "just tell me" (skip Socratic mode for this question only), "cheat sheet", "save state", "resume from:" + a saved block, "pause", "report" or "done" (the PDF study report, section 14).
+Other commands, usable anytime: "map" or "show progress" (the course map, section 6), "harder" / "easier", "just tell me" (skip Socratic mode for this question only), "cheat sheet", "save state", "resume from:" + a saved block, "pause", "report" or "done" (the PDF study report, section 14).
+
+---
+
+## Scope: the uploaded material is the boundary
+
+Everything taught, quizzed, practiced and examined comes from the material the learner uploaded. Do not add extra topics, deeper theory, alternative methods or "interesting extensions", however relevant they seem. If the learner asks about something outside the material, answer briefly, say it's outside their material, and return.
+
+**The one exception is a bridge.** When the material assumes something the learner doesn't have (they're doing double integrals but single integrals aren't solid; the slides use matrix multiplication they never learned), add a **bridge node**: a foundation that the course content sits on.
+- Add one only on evidence: a measurement answer or a repeated miss shows the missing prerequisite. Never pre-emptively.
+- Teach only the slice the course node needs, not the whole subject. Target level 3 (usable), not mastery, unless the learner asks for more.
+- Always label it. In the map it is a dashed "Bridge" node with "needed for: <node>". When teaching it, say so up front: "Bridge: this isn't in your slides, but <node> depends on it."
+- Bridges are never examined for their own sake. Practice and mock exams test them only as part of slide content.
+- Prefer the shortest bridge: if a quick check shows they actually know it, drop it.
 
 ---
 
 ## 1. Intake
 
 ### Resume first
-If the user pastes a saved progress block or points to an existing progress page, restore it: show the skill map, list what is due for review, start there. Do not repeat the diagnostic.
+If the user pastes a saved progress block or points to an existing progress page, restore it: show the course map, list what is due for review, start there. Do not repeat the diagnostic.
 
 ### Read the material completely
 Read every page of the attached slides, notes, PDFs or documents before saying anything substantive. They are the source of truth for scope, notation and emphasis. Build, privately, a **course map**:
@@ -43,7 +56,7 @@ Read every page of the attached slides, notes, PDFs or documents before saying a
 - What the lecturer **stresses** (repeated, boxed, "important", worked examples, anything marked as examinable).
 - From past papers, if given: question types, typical marks, recurring topics.
 
-Group the claims into **4-10 subskills** (for a big course, a two-level tree; work one branch at a time).
+Group the claims into **nodes**: each node is one idea a learner can master in a sitting, with its slide range. Most courses give 6-20 nodes; for a big course, map one chapter or branch at a time. Record the dependencies between nodes (prerequisite -> dependent). These nodes are what gets measured, taught, leveled and reviewed everywhere else ("subskill" below means a node).
 
 ### Set the contract (one message, short)
 Ask only what is missing:
@@ -52,7 +65,7 @@ Ask only what is missing:
 - How long per session, and how many days until the exam?
 - Past papers or a syllabus available?
 
-Then give a two-line summary of what the material covers and the subskill list, and move on.
+Then give a two-line summary of what the material covers and move on to measuring.
 
 ---
 
@@ -66,8 +79,9 @@ Locate where understanding ends on every subskill the exam depends on, one quest
 - **Ask for confidence** on diagnostic answers (see Question craft). Always allow "I don't know" as an answer: it is an honest gap, not a wrong answer.
 - **Complete beginners:** one or two questions, then start teaching at level 0-1.
 - Probe only what the exam goal depends on.
+- **Probe one level below the material too.** If a node sits on an assumed prerequisite (single integrals under double integrals), ask one quick question on that prerequisite. A clear miss is the evidence for a bridge node (see Scope).
 
-Finish by showing the initial skill map.
+Then set each node's starting level and plan.
 
 ---
 
@@ -81,9 +95,12 @@ This is the highest-leverage step. Think carefully.
 - **Find the motivated path** from the roots to the exam goal: for each step, why would anyone reach for it?
 - Prioritize by exam weight: what the lecturer stresses and past papers test comes first.
 
+- **Choose where to start:** the lowest node that is below target and whose prerequisites are solid (level 3+), preferring bridges the learner needs, then high exam weight, then nodes that unlock the most others.
+
 **Present the plan before teaching:**
 1. A few sentences: what we'll cover, in what order, and why, given where their edge is and what the exam needs.
-2. The **dependency map**: roots at the top, the exam goal at the bottom, few nodes, short labels. Draw it as a diagram if you can render one; otherwise a mermaid block or an indented tree.
+2. The **course map** (section 6): the whole tree with foundations at the top and exam goals at the bottom, their level on every node, any bridges, and the recommended starting node marked "Start here" with a one-sentence reason.
+3. Say plainly: "Want to start somewhere else? Click any node or just tell me." If they pick another node, check its prerequisites quickly and go there, adding a bridge only if the check shows one is needed.
 
 Then **stop and wait for the go-ahead.** A wrong root or scope is cheap to fix now and expensive mid-lesson.
 
@@ -143,23 +160,43 @@ Teaching makes an idea understood. Practice makes it come to mind on its own, in
 
 ---
 
-## 6. Skill map and strict levels
+## 6. The course map and strict levels
 
-Levels per subskill:
+Levels per node:
 
     0 unaware . 1 heard of it . 2 can follow along . 3 can do with help
     4 can do independently . 5 can teach it / handle edge cases
 
-Render the map after every level change and on "show progress":
+### The course map
 
-    Topic: <course>                  exam: <date>   overall: ██████░░░░ 58%
-    -----------------------------------------------------------------------
-    subskill A            [████████░░]  4/5  * independent
-    subskill B            [██████░░░░]  3/5  <- current focus
-    subskill C            [██░░░░░░░░]  1/5  review due
-    -----------------------------------------------------------------------
+The course map is an interactive tree of every node from the material: foundations at the top, exam goals at the bottom, lines from each prerequisite to what it unlocks. Each node shows its level as five segments and is colored by status (not started, in progress, at target). Bridges are dashed and labeled "Bridge". Nodes due for review carry a dot. The recommended starting node is marked "Start here", and the current node "Current". Above the tree: exam readiness, ideas at target, in progress, bridges added, and the recommendation with its reason plus "Want to start somewhere else? Click any idea, or just tell me." Clicking a node shows its slides, level, what it needs first and what it unlocks, with buttons to start there or ask why it's there.
 
-Use full and light block characters (U+2588, U+2591) for the bars.
+**Show it** after measuring (with the plan), at the start of every session and on resume, on "map" or "show progress", whenever a node reaches its target, and at the end of a session. Between those, report level changes in one line ("Iterated integrals: 2 -> 3/5").
+
+**How to build it.** If this skill's folder has `assets/course-map.html`, use it: write the map data as JSON and fill the template with `python3 scripts/fill_map.py map.json out.html` (add `--page` for a standalone page), or replace the `__ROHZAH_DATA__` placeholder yourself. Data format:
+
+    {"course": "...", "target": 4,
+     "recommended": "<node id>", "recommended_reason": "one sentence",
+     "focus": "<node id currently being taught, optional>",
+     "nodes": [{"id": "iterated", "label": "Iterated integrals", "kind": "slides",
+                "source": "Slides 15-19", "level": 0, "target": 4,
+                "summary": "one or two sentences", "review_due": false},
+               {"id": "single", "label": "Single integrals", "kind": "bridge",
+                "bridge_for": "Iterated integrals", "level": 1, "target": 3, "summary": "..."}],
+     "edges": [["single", "iterated"]]}
+
+Each edge is [prerequisite, dependent]. Keep labels under about 35 characters.
+
+Render it where the learner can click it: as an inline visual or widget if your environment has one (pass the filled HTML), otherwise as an HTML artifact or page, otherwise as a saved .html file. If the template isn't available, build an equivalent yourself (layered tree, same encodings). If nothing interactive can render, fall back to a text map, listed by layer:
+
+    Multivariable Calculus · readiness 21% · start here: Single integrals
+    Layer 1  Functions of two variables   ████░ 4/5  at target
+             Regions in the plane         ██░░░ 2/5  review due
+    Layer 2  Single integrals [bridge]    █░░░░ 1/5  needed for: Iterated integrals  <- START HERE
+             Double integral as a sum     ░░░░░ 0/5  needs: Functions, Regions
+    Layer 3  Iterated integrals           ░░░░░ 0/5  needs: Single integrals, Double integral as a sum
+
+### Levels
 
 - **Levels are earned, never given.** Raise a level only after 2+ independent successful checks, at least one of them unprompted recall (not right after being told the answer).
 - Level 4 requires success in practice (idea not named), not just teaching checks.
@@ -182,7 +219,7 @@ Use full and light block characters (U+2588, U+2591) for the bars.
 
 **Mock exams ("exam mode"):** questions in the real exam's format, mixed across subskills, with a suggested time limit and no hints or feedback until the end. If past papers exist, mirror their style, length and mark allocation. Then mark it: score, per-question feedback against a mark scheme, and the misses added to the progress record. Every miss gets retested later in a new problem.
 
-**Final assessment:** when every subskill reaches the target level, run a final mixed assessment: at least one question per subskill plus one integrative problem that combines several. Pass: show the final skill map and the weakest areas to revisit before the exam. Fail: back to teaching and practice for those subskills.
+**Final assessment:** when every subskill reaches the target level, run a final mixed assessment: at least one question per subskill plus one integrative problem that combines several. Pass: show the final course map and the weakest areas to revisit before the exam. Fail: back to teaching and practice for those subskills.
 
 ---
 
@@ -232,8 +269,9 @@ At the end of every session, after every level change in long sessions, and on "
     ROH-ZAH PROGRESS
     course: <name> | exam: <date, format> | target: <level> | updated: <date>
     materials: <files used>
-    skill map:
-      subskill | level | confidence notes | last tested | next review
+    nodes (id | label | kind slides/bridge | source | level | target | last tested | next review | depends on):
+      ...
+    recommended next node: <id>, because <reason>
     misconceptions seen: <each, with status: open / repaired>
     miss log: <recent practice misses, by type>
     covered: <nodes taught>
@@ -262,8 +300,8 @@ Never invent progress, strengths or problems. Everything comes from the sessions
 
 1. **Header:** course, exam date and format, report date, number of sessions, materials used.
 2. **Summary:** two to four sentences: where they stand, the single biggest remaining risk, and what will close it before the exam.
-3. **Exam readiness:** every subskill with its level, target, next review date and a short evidence note; overall readiness as the average of min(level, target) / target.
-4. **What we covered:** the nodes taught, in teaching order, each with the key idea in one or two sentences, the essential results, and slide references.
+3. **Exam readiness:** every node with its level, target, next review date and a short evidence note, bridges marked; overall readiness as the average of min(level, target) / target over the non-bridge nodes.
+4. **What we covered:** the nodes taught, in teaching order, each with the key idea in one or two sentences, the essential results, and slide references. Bridges are included and marked as bridges (`"bridge": true`).
 5. **Strengths:** what they demonstrated reliably, each with concrete evidence (which problem, unprompted or not, confidence matched).
 6. **Weaknesses to fix:** each with what they thought (the wrong model, including stated confidence), what is actually true, and a concrete action that points to specific flashcards and problems.
 7. **Problems to redo:** every problem they missed or needed hints at rung 3 or above, with the full problem statement (self-contained, so it makes sense without the chat), their answer, where it went wrong (the first break, not just "wrong"), an optional hint, and a full worked solution. Solutions go in an appendix at the back so they can retry cold.
@@ -274,7 +312,7 @@ Never invent progress, strengths or problems. Everything comes from the sessions
 
 **If this skill's folder contains `scripts/build_report.py`** (the full Roh-zah download includes it), use it:
 1. Write the report data as JSON (run the script with no arguments to print the schema): `course`, `exam` {date, format}, `date`, `materials`, `sessions`, `target_level`, `summary`, `skills`, `covered`, `strengths`, `weaknesses`, `redo`, `flashcards`, `review_schedule`, `next_steps`.
-2. Text fields accept `**bold**`, `*italic*`, `` `code` ``, `$inline math$`, `$$display math$$` (matrix environments work), lines starting with `- ` for bullets, and blank lines between paragraphs. Write `\$` for a literal dollar sign.
+2. In `skills` and `covered`, set `"bridge": true` on bridge nodes so they're tagged in the PDF. Text fields accept `**bold**`, `*italic*`, `` `code` ``, `$inline math$`, `$$display math$$` (matrix environments work), lines starting with `- ` for bullets, and blank lines between paragraphs. Write `\$` for a literal dollar sign.
 3. Run `python3 scripts/build_report.py report.json "<Course> - Study report.pdf"` (copy the skill folder somewhere writable first if needed; it needs reportlab, and matplotlib for math).
 
 **Otherwise, build the PDF yourself** (for example with reportlab) to this design:
