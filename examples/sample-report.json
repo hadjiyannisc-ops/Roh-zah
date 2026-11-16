@@ -1,0 +1,237 @@
+{
+  "course": "Linear Algebra I",
+  "date": "2026-11-16",
+  "exam": {
+    "date": "2026-12-12",
+    "format": "Written, 2 hours, no calculator"
+  },
+  "materials": [
+    "LA_lectures_1-8.pdf",
+    "Past paper 2025"
+  ],
+  "sessions": 4,
+  "target_level": 4,
+  "summary": "You now understand **linear maps** as the central object and can derive most results from the definition, which is the strongest position to be in. Eigenvalues are solid. The remaining risk is **change of basis**: you compute it mechanically but pick the wrong direction for the matrix under exam pressure. Two focused practice sessions should close that gap before December 12.",
+  "skills": [
+    {
+      "name": "Vector spaces and subspaces",
+      "level": 5,
+      "target": 4,
+      "next_review": "Dec 6",
+      "note": "Handled the edge case of the zero subspace unprompted."
+    },
+    {
+      "name": "Linear maps and matrices",
+      "level": 4,
+      "target": 4,
+      "next_review": "Nov 26",
+      "note": "Derives $A\\mathbf{e}_j$ as column $j$ without help."
+    },
+    {
+      "name": "Rank–nullity",
+      "level": 4,
+      "target": 4,
+      "next_review": "Nov 26",
+      "note": ""
+    },
+    {
+      "name": "Determinants",
+      "level": 3,
+      "target": 4,
+      "next_review": "Nov 20",
+      "note": "Row-operation rules still need recall practice."
+    },
+    {
+      "name": "Change of basis",
+      "level": 2,
+      "target": 4,
+      "next_review": "Nov 18",
+      "note": "Direction of $P$ vs $P^{-1}$ confused twice."
+    },
+    {
+      "name": "Eigenvalues and diagonalization",
+      "level": 4,
+      "target": 4,
+      "next_review": "Nov 26",
+      "note": ""
+    }
+  ],
+  "covered": [
+    {
+      "title": "A matrix is a linear map written in a basis",
+      "source": "Slides 3.2–3.9",
+      "summary": "Everything rests on one unconditional truth: a linear map is determined by what it does to a basis. The matrix just records those images as columns.",
+      "points": [
+        "Column $j$ of $A$ is $T(\\mathbf{e}_j)$.",
+        "Matrix multiplication is composition of maps, which is why it is not commutative."
+      ]
+    },
+    {
+      "title": "Rank–nullity as conservation of dimension",
+      "source": "Slides 4.1–4.6",
+      "summary": "Every input dimension either survives into the image or is crushed into the kernel:",
+      "points": [
+        "$$\\dim V = \\operatorname{rank} T + \\operatorname{nullity} T$$",
+        "Used it to decide injectivity from dimensions alone."
+      ]
+    },
+    {
+      "title": "Eigenvectors are directions a map only stretches",
+      "source": "Slides 7.1–7.8",
+      "summary": "Solving $\\det(A - \\lambda I) = 0$ is just asking when $A - \\lambda I$ crushes some direction, which links straight back to the kernel."
+    }
+  ],
+  "strengths": [
+    {
+      "title": "You reason from definitions, not formulas",
+      "evidence": "Rebuilt the rank–nullity argument from scratch in session 3 without being prompted, and correctly predicted why $AB \\neq BA$ in general."
+    },
+    {
+      "title": "Eigenvalue computations are reliable",
+      "evidence": "6 of 6 practice problems correct, including a repeated eigenvalue case, with confidence matching results."
+    },
+    {
+      "title": "Good calibration",
+      "evidence": "When you said you were unsure, you were usually wrong, and when you were sure you were right. That makes your self-review trustworthy."
+    }
+  ],
+  "weaknesses": [
+    {
+      "title": "Direction of the change-of-basis matrix",
+      "misconception": "You treated $P$ as converting standard coordinates into $\\mathcal{B}$-coordinates, at 90% confidence.",
+      "correction": "The columns of $P$ are the $\\mathcal{B}$ basis vectors written in standard coordinates, so $P$ converts **from** $\\mathcal{B}$ **to** standard: $[\\mathbf{v}]_{\\text{std}} = P[\\mathbf{v}]_{\\mathcal{B}}$.",
+      "action": "Before using $P$ or $P^{-1}$, write the sentence *\"P eats B-coordinates\"* in the margin. Redo problems 1 and 2 below."
+    },
+    {
+      "title": "Determinant row-operation rules under time pressure",
+      "misconception": "Forgot that swapping two rows flips the sign of the determinant.",
+      "correction": "Swapping rows is an odd permutation of the rows, so the sign flips. Scaling a row by $c$ multiplies the determinant by $c$; adding a multiple of one row to another changes nothing.",
+      "action": "Flashcards 7–9, then problem 3."
+    }
+  ],
+  "redo": [
+    {
+      "topic": "Change of basis",
+      "miss_type": "misconception",
+      "problem": "Let $\\mathcal{B} = \\{(1,1), (1,-1)\\}$. Find $[\\mathbf{v}]_{\\mathcal{B}}$ for $\\mathbf{v} = (3, 1)$.",
+      "your_answer": "Computed $P\\mathbf{v} = (4, 2)$.",
+      "what_went_wrong": "Applied $P$ instead of $P^{-1}$: $P$ goes from $\\mathcal{B}$-coordinates to standard, not the other way.",
+      "hint": "Which coordinates do you have, and which do you want? Write $\\mathbf{v}$ as $a(1,1) + b(1,-1)$.",
+      "solution": "Solve $a + b = 3$, $a - b = 1$, so $a = 2$, $b = 1$ and $[\\mathbf{v}]_{\\mathcal{B}} = (2, 1)$. Equivalently $[\\mathbf{v}]_{\\mathcal{B}} = P^{-1}\\mathbf{v}$ with $P = \\begin{pmatrix}1 & 1\\\\ 1 & -1\\end{pmatrix}$ written as columns."
+    },
+    {
+      "topic": "Change of basis",
+      "miss_type": "right idea run wrong",
+      "problem": "$T$ has matrix $A$ in the standard basis. Write the matrix of $T$ in basis $\\mathcal{B}$ in terms of $A$ and $P$.",
+      "your_answer": "$PAP^{-1}$",
+      "what_went_wrong": "Order reversed: you need to convert into standard coordinates first, apply $A$, then convert back.",
+      "hint": "Read the product right to left, as a pipeline acting on $[\\mathbf{v}]_{\\mathcal{B}}$.",
+      "solution": "$[T]_{\\mathcal{B}} = P^{-1}AP$: $P$ turns $\\mathcal{B}$-coordinates into standard ones, $A$ applies $T$, and $P^{-1}$ turns the result back into $\\mathcal{B}$-coordinates."
+    },
+    {
+      "topic": "Determinants",
+      "miss_type": "careless slip",
+      "problem": "Given $\\det A = 5$ for a $3\\times 3$ matrix $A$, find $\\det B$ where $B$ is obtained by swapping rows 1 and 3 of $A$ and then multiplying row 2 by $4$.",
+      "your_answer": "$20$",
+      "what_went_wrong": "Missed the sign flip from the row swap.",
+      "solution": "Swap: $\\det = -5$. Scale row 2 by 4: $\\det B = -20$."
+    }
+  ],
+  "flashcards": [
+    {
+      "topic": "Linear maps",
+      "front": "What determines a linear map completely?",
+      "back": "Its values on a basis."
+    },
+    {
+      "topic": "Linear maps",
+      "front": "What is column $j$ of the matrix of $T$?",
+      "back": "$T(\\mathbf{e}_j)$, written in the target basis."
+    },
+    {
+      "topic": "Rank–nullity",
+      "front": "State rank–nullity for $T: V \\to W$.",
+      "back": "$\\dim V = \\operatorname{rank} T + \\operatorname{nullity} T$"
+    },
+    {
+      "topic": "Rank–nullity",
+      "front": "$T: \\mathbb{R}^5 \\to \\mathbb{R}^3$. Can $T$ be injective?",
+      "back": "No. Rank is at most 3, so the nullity is at least 2."
+    },
+    {
+      "topic": "Change of basis",
+      "front": "Which way does $P$ convert coordinates?",
+      "back": "From $\\mathcal{B}$ to standard: $[\\mathbf{v}]_{\\text{std}} = P[\\mathbf{v}]_{\\mathcal{B}}$."
+    },
+    {
+      "topic": "Change of basis",
+      "front": "Matrix of $T$ in basis $\\mathcal{B}$?",
+      "back": "$P^{-1}AP$"
+    },
+    {
+      "topic": "Determinants",
+      "front": "Effect of swapping two rows on $\\det$?",
+      "back": "Multiplies it by $-1$."
+    },
+    {
+      "topic": "Determinants",
+      "front": "Effect of scaling one row by $c$?",
+      "back": "Multiplies it by $c$."
+    },
+    {
+      "topic": "Determinants",
+      "front": "Effect of adding a multiple of one row to another?",
+      "back": "None."
+    },
+    {
+      "topic": "Eigenvalues",
+      "front": "Why does $\\det(A - \\lambda I) = 0$ find eigenvalues?",
+      "back": "It holds exactly when $A - \\lambda I$ has a nonzero kernel, that is, when some direction is only scaled by $\\lambda$."
+    },
+    {
+      "topic": "Matrices",
+      "front": "Write the $3\\times 3$ identity matrix.",
+      "back": "$$I_3=\\begin{pmatrix}1&0&0\\\\0&1&0\\\\0&0&1\\end{pmatrix}$$"
+    }
+  ],
+  "review_schedule": [
+    {
+      "date": "Nov 18",
+      "items": [
+        "Change of basis (redo problems 1–2)",
+        "Flashcards 5–6"
+      ]
+    },
+    {
+      "date": "Nov 20",
+      "items": [
+        "Determinants (problem 3, flashcards 7–9)"
+      ]
+    },
+    {
+      "date": "Nov 26",
+      "items": [
+        "Linear maps",
+        "Rank–nullity",
+        "Eigenvalues: mixed practice"
+      ]
+    },
+    {
+      "date": "Dec 6",
+      "items": [
+        "Full mock exam in exam mode"
+      ]
+    },
+    {
+      "date": "Dec 10",
+      "items": [
+        "All flashcards",
+        "Weakest two subskills"
+      ]
+    }
+  ],
+  "next_steps": [
+    "Start the next session with **review due**: change of basis comes first.",
+    "Bring the 2024 past paper for the mock exam on Dec 6."
+  ]
+}

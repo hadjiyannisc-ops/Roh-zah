@@ -19,6 +19,7 @@ Plus things none of them have:
 - **Exam-aware.** Review intervals compress to your exam date. "Exam mode" runs timed mocks in your exam's real format and marks them.
 - **Visuals.** Diagrams, interactive demos and step-throughs whenever an idea is clearer as a picture.
 - **Cheat sheets** for each topic once you've mastered it.
+- **A PDF study report** when you're done: your readiness per topic, what you covered, your strengths and weaknesses (what you thought vs. what's true), flashcards, and every problem you got wrong to redo, with solutions at the back. See [the example](examples/sample-report.pdf).
 
 ## How a session goes
 
@@ -28,6 +29,7 @@ Plus things none of them have:
 4. **Teach:** for each idea: you predict, Claude explains (answering your prediction), you're checked.
 5. **Practice:** mixed problems that never say which idea they need, with hints given one step at a time.
 6. **Review and exam:** spaced review of earlier topics, mock exams, and a final assessment.
+7. **Report:** say `done` and you get the PDF study report to print and keep.
 
 ## Install
 
@@ -36,7 +38,9 @@ Plus things none of them have:
 1. Download [`dist/roh-zah.zip`](dist/roh-zah.zip).
 2. In Claude, open **Settings** and find **Skills** (under Capabilities or Customize, depending on your app version).
 3. Choose **Upload skill** and select `roh-zah.zip`.
-4. Make sure the skill is switched on.
+4. Make sure the skill is switched on, and that code execution / file creation is enabled in Settings (needed to build the PDF report).
+
+The zip includes the report builder and its fonts, so your PDFs come out exactly like the example.
 
 ### Claude Code
 
@@ -74,6 +78,7 @@ Commands you can use anytime:
 | `just tell me` | Skips the questioning for the current question only |
 | `cheat sheet` | Compressed summary of a mastered topic |
 | `save state` | Prints your progress so you can continue later |
+| `done` / `report` | Builds the PDF study report |
 | `Roh-zah resume from:` + saved block | Continues where you left off in a new chat |
 
 ## Tips
@@ -91,4 +96,4 @@ It's a prompt: the model grades your answers, so levels are only as reliable as 
 
 Roh-zah's instructions are written fresh, but the ideas come from the projects above. Thanks to Amos Blomqvist, Jane Street and nuwaves. Portions derive from Jane Street's socratic-tutor (MIT, Copyright (c) 2026 Jane Street Group, LLC).
 
-Released under the [MIT License](LICENSE).
+Released under the [MIT License](LICENSE). The bundled IBM Plex fonts are under the [SIL Open Font License](roh-zah/scripts/fonts/OFL.txt).

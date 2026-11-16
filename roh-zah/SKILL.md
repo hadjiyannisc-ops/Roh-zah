@@ -1,6 +1,6 @@
 ---
 name: roh-zah
-description: Study system for exams. Use whenever the user says "Roh-zah" (any spelling or capitalization, e.g. rohzah, roh zah), usually with slides, notes or a document attached. Turns the material into a course map, finds the learner's knowledge edge, teaches each idea from first principles, drills to proven mastery with a 0-5 skill map, spaced review, practice and mock exams.
+description: Study system for exams. Use whenever the user says "Roh-zah" (any spelling or capitalization, e.g. rohzah, roh zah), usually with slides, notes or a document attached. Turns the material into a course map, finds the learner's knowledge edge, teaches each idea from first principles, drills to proven mastery with a 0-5 skill map, spaced review, practice and mock exams, and ends with a printable PDF study report.
 ---
 
 # Roh-zah
@@ -10,6 +10,7 @@ A study system that takes a learner from their current understanding to exam-rea
 - **Understand it** (from Amos Blomqvist's method): find exactly where the learner's knowledge ends, plan from unconditional truths, and build every idea so it feels discovered rather than decreed.
 - **Prove it** (from Jane Street's socratic-tutor): one question at a time, no answers handed over, levels earned only through unprompted recall, surprise review, a final assessment.
 - **Keep it and use it** (from learning science): predict before teaching, confidence ratings, interleaved practice where the needed idea is never named, spaced review compressed to the exam date, mock exams in the real format.
+- **Take it with you:** a printable PDF study report at the end, with your strengths and weaknesses, flashcards, and the problems you got wrong to redo.
 
 The goal is never "they can recite it". The goal is that every fact is derivable from foundations they already accept, comes to mind unprompted in unfamiliar problems, and is still there on exam day.
 
@@ -26,7 +27,7 @@ Start when the user says "Roh-zah" (or asks to study, be taught, quizzed or dril
 | **Review** | Subskills due for spaced review | "review due" |
 | **Exam** | Timed mock in the real exam format | "exam mode" |
 
-Other commands, usable anytime: "show progress" (skill map), "harder" / "easier", "just tell me" (skip Socratic mode for this question only), "cheat sheet", "save state", "resume from:" + a saved block, "pause".
+Other commands, usable anytime: "show progress" (skill map), "harder" / "easier", "just tell me" (skip Socratic mode for this question only), "cheat sheet", "save state", "resume from:" + a saved block, "pause", "report" or "done" (the PDF study report, section 14).
 
 ---
 
@@ -248,3 +249,42 @@ When a subskill reaches level 4, offer a **cheat sheet** for it: the compressed 
 ## 13. Voice
 
 Concise and direct. One question per message during sessions. Plain language; technical terms only once defined. No flattery and no filler. Write math in LaTeX: inline `$f(x)$`, display math in `$$` blocks.
+
+---
+
+## 14. The study report (PDF)
+
+When the learner says "done", "report", "finish", or "end", or after the final assessment, offer the study report, and produce it when they say yes. It is a polished PDF of everything from the sessions, meant to be printed and studied from. Hold it to the standard of a document from a top quantitative firm: rigorous, specific, and quiet in design.
+
+### Content: only what actually happened
+
+Never invent progress, strengths or problems. Everything comes from the sessions in this conversation (and any resumed progress record).
+
+1. **Header:** course, exam date and format, report date, number of sessions, materials used.
+2. **Summary:** two to four sentences: where they stand, the single biggest remaining risk, and what will close it before the exam.
+3. **Exam readiness:** every subskill with its level, target, next review date and a short evidence note; overall readiness as the average of min(level, target) / target.
+4. **What we covered:** the nodes taught, in teaching order, each with the key idea in one or two sentences, the essential results, and slide references.
+5. **Strengths:** what they demonstrated reliably, each with concrete evidence (which problem, unprompted or not, confidence matched).
+6. **Weaknesses to fix:** each with what they thought (the wrong model, including stated confidence), what is actually true, and a concrete action that points to specific flashcards and problems.
+7. **Problems to redo:** every problem they missed or needed hints at rung 3 or above, with the full problem statement (self-contained, so it makes sense without the chat), their answer, where it went wrong (the first break, not just "wrong"), an optional hint, and a full worked solution. Solutions go in an appendix at the back so they can retry cold.
+8. **Flashcards:** 10-30 cards: every definition and result they must recall, plus one card per misconception (front: the trap question; back: the correct model). Short, atomic, one fact per card, front answerable without context.
+9. **Plan until the exam:** review dates from the spaced-review schedule (compressed to the exam), with what to do each day, plus the next steps.
+
+### Building it
+
+**If this skill's folder contains `scripts/build_report.py`** (the full Roh-zah download includes it), use it:
+1. Write the report data as JSON (run the script with no arguments to print the schema): `course`, `exam` {date, format}, `date`, `materials`, `sessions`, `target_level`, `summary`, `skills`, `covered`, `strengths`, `weaknesses`, `redo`, `flashcards`, `review_schedule`, `next_steps`.
+2. Text fields accept `**bold**`, `*italic*`, `` `code` ``, `$inline math$`, `$$display math$$` (matrix environments work), lines starting with `- ` for bullets, and blank lines between paragraphs. Write `\$` for a literal dollar sign.
+3. Run `python3 scripts/build_report.py report.json "<Course> - Study report.pdf"` (copy the skill folder somewhere writable first if needed; it needs reportlab, and matplotlib for math).
+
+**Otherwise, build the PDF yourself** (for example with reportlab) to this design:
+- A4, generous margins (about 22 mm), one serif text face for body (10 pt, 1.45 line spacing) and one sans face for labels and headings; embed a quality font such as IBM Plex or Source Serif if available.
+- Near-black text, grey for secondary text, a single dark accent color used sparingly. No decoration, no clip art, no gradients.
+- Numbered sections (01, 02...) with a sans heading and a thin rule. Tables with horizontal hairlines only.
+- Skill levels as five small segmented bars with a tick at the target. Weaknesses in a light grey box with a thin colored left border and small labels: "What you thought", "What is actually true", "What to do".
+- Flashcards in two columns (front, back) separated by a dashed fold line.
+- Math typeset properly (rendered, not raw LaTeX). Page footer with course name and "page / total".
+
+### Before delivering
+
+Render the pages to images and look at every one: no raw markup or LaTeX, no overlapping or clipped text, no near-empty pages, problems and cards not split awkwardly, math aligned with the text. Fix and rebuild until clean. Deliver the PDF as a file, with one line saying what's in it, and also give the progress record from section 12 so the next session can resume.
